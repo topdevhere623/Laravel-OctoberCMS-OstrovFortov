@@ -1,0 +1,25 @@
+columns:
+    id:
+        label: id
+        type: number
+    name:
+        label: 'shohabbos.customfields::lang.property.name'
+        type: text
+    type:
+        label: 'shohabbos.customfields::lang.property.type'
+        type: text
+    label:
+        label: 'shohabbos.customfields::lang.property.label'
+        type: text
+    comment:
+        label: 'shohabbos.customfields::lang.property.comment'
+        type: text
+        invisible: true
+    created_at:
+        label: 'shohabbos.customfields::lang.group.created_at'
+        type: datetime
+        invisible: true
+    updated_at:
+        label: 'shohabbos.customfields::lang.group.updated_at'
+        type: datetime
+        invisible: true

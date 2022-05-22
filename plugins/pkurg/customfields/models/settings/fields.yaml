@@ -1,0 +1,8 @@
+fields:
+    section_title:
+        label: 'API KEY'
+        span: full
+        type: section
+    apikey:                       
+        span: full
+        comment: example (GET http://oct.pkurg.ru/api/v1/fields/5?key={key})

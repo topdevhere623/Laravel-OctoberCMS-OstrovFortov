@@ -1,0 +1,198 @@
+<html>
+<head>
+	<title>Upload files</title>
+</head>
+<body>
+
+	<div class="row ">
+		<div class="col-md-12 "  >
+			<!--   <h2>Загрузить</h2> -->
+			<center>
+				<h2>Import Blog Custom Fields with Data
+				</h2>
+				<!-- <p>Attention after import, all old data of custom blog fields will be deleted.</p> -->
+			</center>
+			<div>
+
+				<div class="container ">
+					<center>
+						<div class="dropzone" id="dropzoneFileUpload">
+							<div class="dz-message" data-dz-message><span>Drop file here to import </span></div>
+						</div>
+					</center>
+				</div>
+
+			</div>
+
+
+			<!-- <center>
+
+
+								<a  id="sendbutton" ><button class="1btn-is-disabled btn btn-primary" id="btn">Import</button></a>
+
+							</center> -->
+
+
+						</div>
+					</div>
+
+
+					{{  form_token()  }}
+
+
+					<script type="text/javascript">
+
+
+
+
+		// document.getElementById("btn").disabled = true;
+
+		var token = $( "input[name='_token']" ).val();
+		Dropzone.autoDiscover = false;
+		var myDropzone = new Dropzone("div#dropzoneFileUpload", {
+			url:  "{{ backendURL }}/pkurg/customfields/blogfieldsimport/uploadFiles/{{id}}",
+			params: {
+				_token: token
+			},
+
+			addRemoveLinks: true,
+			acceptedFiles: ".txt",
+			// removedfile: function (file) {
+
+
+			// 	var name = file.previewElement.querySelector('[data-dz-name]').innerHTML;
+
+
+
+			// 	var name = name;
+
+
+
+			// 	$.get('{{ backendURL }}/pkurg/playlistd/track/RemoveFile/{{id}}/' + name);
+
+
+			// 	var _ref;
+			// 	return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
+
+
+			// },
+
+			success: function (file, response) {
+
+
+				// var fileuploded = file.previewElement.querySelector("[data-dz-name]");
+				// fileuploded.innerHTML = response.newfilename;
+
+
+				$.oc.flashMsg({
+					'text': 'Import finished.',
+					'class': 'success',
+					'interval': 3
+				});
+
+
+				window.location.href = "{{ backendURL }}/pkurg/customfields/customfields";
+
+
+            //var aa = file.previewElement.querySelector("[data-dz-name]");
+            //console.log(response);
+            //console.log(file.previewElement);
+        }
+        ,
+        maxFiles:1,
+        init: function () {
+
+        	this.on('success', function (file, json) {
+
+        		// document.getElementById("btn").disabled = false;
+        		//file.previewTemplate.appendChild(document.createTextNode(file.name));
+
+        	});
+
+        	this.on('drop', function (file, json) {
+                //document.getElementById("btn").disabled = false;
+                //alert('drop');
+             //   $.get("/track/CreateUploadDir/{{id}}");
+
+         });
+
+        	this.on("error", function (file, responseText) {
+        		
+        		
+
+
+        		$.each(responseText, function (index, value) {
+        			$('.dz-error-message').text(value);
+
+        			$.oc.flashMsg({
+        				'text': value,
+        				'class': 'error',
+        				'interval': 3
+        			});
+
+        		});
+
+
+        	});
+
+
+
+        	this.on("addedfile", function (file) {
+        		// if (!file.type.match("audio/mpeg")) {
+          //           // This is not an image, so Dropzone doesn't create a thumbnail.
+          //           // Set a default thumbnail:
+          //           myDropzone.emit("thumbnail", file, "/plugins/pkurg/playlistd/assets/img/mp3.png");
+
+          //           // You could of course generate another image yourself here,
+          //           // and set it as a data url.
+          //       }
+      });
+
+
+
+
+        }
+    });
+
+
+
+</script>
+<!--
+
+<script type="text/javascript">
+
+	$(document).ready(function () {
+		$("#sendbutton").one('click', function (event) {
+			event.preventDefault();
+
+alert('d');
+
+			// $.ajax({
+			// 	url: "{{ backendURL }}/pkurg/playlistd/track/getPLID/{{id}}",
+			// 	success: function (ret) {
+
+			// 		var newData = JSON.stringify(ret)
+			// 		var json = JSON.parse(newData);
+
+			// 		window.location.href = "playlist/update/" + json["plid"];
+
+			// 	}
+			// });
+
+
+
+
+
+
+		});
+	});
+
+</script>  -->
+
+<br>
+<br>
+<br>
+
+
+</body>
+</html>

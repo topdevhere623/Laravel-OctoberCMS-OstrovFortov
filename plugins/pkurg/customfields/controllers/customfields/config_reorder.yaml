@@ -1,0 +1,4 @@
+title: CustomFields
+modelClass: pkurg\Customfields\Models\CustomFields
+toolbar:
+    buttons: reorder_toolbar

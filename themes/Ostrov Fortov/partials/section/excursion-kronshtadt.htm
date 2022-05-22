@@ -1,0 +1,31 @@
+<section class="excursion-kronshtadt" id="excursion">
+    <div class="excursion-kronshtadt__container container">
+{% component 'contenteditor' file="title.htm" class="title" fixture="h2" %}
+        <div class="excursion-kronshtadt__wrapper">
+            <div class="excursion-kronshtadt__item">
+                {% component 'contenteditor' file="description-excursion.htm" fixture="p" class="" %}
+                <ul>
+                    <li><img src="{{'assets/img/excursion-kronshtadt/anchor.svg'|theme}}" alt="anchor">
+                    {% component 'contenteditor' file="anchor.htm" fixture="p" class="span" %}
+                    </li>
+                    <li><img src="{{'assets/img/excursion-kronshtadt/time.svg'|theme}}" alt="time">
+                    {% component 'contenteditor' file="time.htm" fixture="p" class="span" %}
+                    </li>
+                    <li><img src="{{'assets/img/excursion-kronshtadt/shout.svg'|theme}}" alt="shout">
+                    {% component 'contenteditor' file="shout.htm" fixture="span" class="" %}
+                    </li>
+                    <li><img src="{{'assets/img/excursion-kronshtadt/cup.svg'|theme}}" alt="cup">
+                    {% component 'contenteditor' file="cup.htm" fixture="p" class="span" %}
+                    </li>
+                </ul>
+                <button class="button button--blue excursion-kronshtadt__btn" type="button" data-modal="excursion-ticket">{{viewBag.buttontext}}</button>
+            </div>
+            <div class="excursion-kronshtadt__item">
+                <div class="excursion-kronshtadt__img-block">
+<img src="{{ viewBag.blockimage }}" alt="ship" class="fr-fic fr-dii">
+                </div>
+            </div>
+        </div>
+        <div class="excursion-kronshtadt__map-block"><img src="{{'assets/img/excursion-kronshtadt/excursion-map.svg'|theme}}" alt="map"></div>
+    </div>
+</section>

@@ -1,0 +1,44 @@
+[blogPosts]
+pageNumber = "{{ :page }}"
+categoryFilter = "o-perevozchike-galereya"
+postsPerPage = 10
+noPostsMessage = "Записей не найдено"
+sortOrder = "title asc"
+categoryPage = "home"
+postPage = "home"
+==
+{% set carrmits = blogPosts.posts %}
+<section class="about-carrmit">
+    <div class="about-carrmit__container container">
+        <div class="about-carrmit__descr" id="about-carrmit">
+            {% component 'contenteditor' file="about-carrmit/title.htm" class="about-carrmit__title title" fixture="h2" %}
+            {% component 'contenteditor' file="about-carrmit/1line.htm" class="about-carrmit__text" fixture="p" %}
+            {% component 'contenteditor' file="about-carrmit/2line.htm" class="about-carrmit__text" fixture="p" %}
+            {% component 'contenteditor' file="about-carrmit/3line.htm" class="about-carrmit__text" fixture="p" %}
+            <div class="about-carrmit__bg-img"><img src="{{'assets/img/about-carrmit/ship-bg@1x.png'|theme}}" srcset="{{'assets/img/about-carrmit/ship-bg@2x.png'|theme}} 2x" width="367" height="367" alt="Kronshtadt ship"></div>
+        </div>
+        <div class="slider-sights slider-sights--carrmit slider-sights--white">
+            <ul class="slider-sights__list swiper-wrapper">
+            {% for carrmit in carrmits %}
+                {%for image in carrmit.featured_images|slice(0,1) %}
+                    <li class="slider-sights__item swiper-slide">
+                        <picture><img src="{{image.path}}" alt="slide"></picture>
+                    </li>
+                {% endfor %}
+            {% endfor %}
+            </ul>
+            <div class="slider-sights__nav">
+                <button class="slider-sights__btn slider-sights__btn--prev" type="button">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16.0195 3.9585L3.99872 15.9793M16.0195 28.0001L3.99872 15.9793M3.99872 15.9793L28.0403 15.9793" stroke="currentColor" stroke-width="2"></path>
+                    </svg>
+                </button>
+                <button class="slider-sights__btn slider-sights__btn--next" type="button">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16.0195 28L28.0403 15.9792M16.0195 3.95837L28.0403 15.9792M28.0403 15.9792L3.99872 15.9792" stroke="currentColor" stroke-width="2"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>

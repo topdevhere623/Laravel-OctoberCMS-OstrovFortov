@@ -1,0 +1,89 @@
+[blogPosts]
+pageNumber = "{{ :page }}"
+categoryFilter = "marshruty"
+postsPerPage = 2
+noPostsMessage = "Записей не найдено"
+sortOrder = "published_at desc"
+categoryPage = 404
+postPage = 404
+==
+<section class="departure-berths">
+    <div class="departure-berths__container container">
+      <h2 class="departure-berths__title title" id="departure-berths">Причалы отправления и&nbsp;прибытия</h2>
+      <div class="departure-berths__tabs js-tabs-container">
+        <button class="departure-berths__tabs-btn active" type="button" data-tabs="spb">Санкт-Петербург</button>
+        <button class="departure-berths__tabs-btn" type="button" data-tabs="kronstadt">Кронштадт</button>
+      </div>
+      <div class="departure-berths__tabs-list">
+        <div class="departure-berths__tabs-item active" data-tabs-item="spb">
+            {{ post.getField('spbcenter') }}
+          <div class="departure-berths__map" id="mapSpb" data-map='{"center": [ {{ this.page.viewBag.spbcenter }} ], "zoom": {{ this.page.viewBag.spbzoom }}, "pins": [[{{ this.page.viewBag.spbplaceone }}], [{{ this.page.viewBag.spbplacetwo }}]] }'></div>
+          <div class="departure-berths__pier-list-container js-slider-departure-berths">
+            <ul class="departure-berths__pier-list pier-list swiper-wrapper">
+              {% set posts = blogPosts.posts %}
+              {% for post in posts %}
+              <li class="pier-list__item swiper-slide">
+                <div class="pier-list__img-block">
+                {% for image in post.featured_images|slice(0,1) %}
+                  <picture><img src="{{image.path}}" alt="{{post.title}}"></picture>
+                {% endfor %}
+                </div>
+                <h3 class="pier-list__title">{{post.title}}</h3>
+                {% for item in post.getRepeatField('place') %}
+                <p class="pier-list__pin">{{item.place}}</p>
+                {% endfor %}
+                <div class="pier-list__time-block"><span>Время отправления</span>
+                  <div class="pier-list__time-list">
+                  {% for item in post.getRepeatField('departuretime') %}
+
+                    <time datetime="{{item.departuretime}}">{{item.departuretime}}</time>
+
+                  {% endfor %}
+
+                  </div>
+                </div>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+        <div class="departure-berths__tabs-item" data-tabs-item="kronstadt">
+          <div class="departure-berths__map" id="mapKronstadt" data-map='{"center": [ {{ this.page.viewBag.kroncenter }} ], "zoom": {{ this.page.viewBag.kronzoom }}, "pins": [[{{ this.page.viewBag.kronplaceone }}], [{{ this.page.viewBag.kronplacetwo }}]] }'></div>
+          <div class="departure-berths__pier-list-container js-slider-departure-berths">
+            <ul class="departure-berths__pier-list pier-list swiper-wrapper">
+              <li class="pier-list__item swiper-slide">
+                <div class="pier-list__img-block">
+                  <picture><img src="{{'assets/img/departure-berths/pier-kronstadt-1@1x.jpg'|theme}}" srcset="{{'assets/img/departure-berths/pier-kronstadt-1@1x.jpg'|theme}}" alt="Pier spb 1"></picture>
+                </div>
+                <h3 class="pier-list__title">Причал «Остров фортов»</h3>
+                <p class="pier-list__pin">Центральная аллея парка</p>
+                <div class="pier-list__time-block"><span>Время отправления</span>
+                  <div class="pier-list__time-list">
+                    <time datetime="11:50">11:50</time>
+                    <time datetime="14:35">14:35</time>
+                    <time datetime="17:00">17:00</time>
+                    <time datetime="20:00">20:00</time>
+                  </div>
+                </div>
+              </li>
+              <li class="pier-list__item swiper-slide">
+                <div class="pier-list__img-block">
+                  <picture><img src="{{'assets/img/departure-berths/pier-kronstadt-2@1x.jpg'|theme}}" srcset="{{'assets/img/departure-berths/pier-kronstadt-2@1x.jpg'|theme}}" alt="Pier spb 2"></picture>
+                </div>
+                <h3 class="pier-list__title">Причал «Зимняя пристань»</h3>
+                <p class="pier-list__pin">Арсенальный переулок.</p>
+                <div class="pier-list__time-block"><span>Время отправления</span>
+                  <div class="pier-list__time-list">
+                    <time datetime="12:10">12:10</time>
+                    <time datetime="14:55">14:55</time>
+                    <time datetime="17:20">17:20</time>
+                    <time datetime="19:35">19:35</time>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

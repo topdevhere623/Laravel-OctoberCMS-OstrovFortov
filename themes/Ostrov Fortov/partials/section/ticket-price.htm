@@ -1,0 +1,39 @@
+<section class="ticket-price">
+    <div class="ticket-price__container container">
+      <h2 class="ticket-price__title title" id="ticket-price">Стоимость билетов</h2>
+      <div class="ticket-price__table-container">
+        <table class="ticket-price__table">
+          <thead>
+            <tr>
+              <td>
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M21.3137 29.5703L33.5702 17.3138L32.5074 16.2509C31.0562 16.5095 29.5061 16.0781 28.3848 14.9568C27.2634 13.8354 26.832 12.2854 27.0906 10.8342L26.0278 9.77132L24.6667 11.1324L22.8033 9.22452L24.1421 7.8857C25.1835 6.8443 26.872 6.8443 27.9134 7.8857L30.2704 10.2427C29.4893 11.0238 29.4893 12.2901 30.2704 13.0711C31.0514 13.8522 32.3178 13.8522 33.0988 13.0711L35.4558 15.4282C36.4972 16.4696 36.4972 18.158 35.4558 19.1994L23.1993 31.4559C22.1579 32.4973 20.4695 32.4973 19.4281 31.4559L21.3137 29.5703Z" fill="black"></path>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M18.0278 10.8353L5.77124 23.0918L6.83411 24.1547C8.28529 23.8961 9.83534 24.3275 10.9567 25.4488C12.078 26.5702 12.5094 28.1202 12.2508 29.5714L13.3137 30.6343L25.5702 18.3778L24.5074 17.3149C23.0562 17.5735 21.5061 17.1421 20.3848 16.0207C19.2634 14.8994 18.832 13.3493 19.0906 11.8982L18.0278 10.8353ZM19.9134 8.94966C18.872 7.90826 17.1835 7.90826 16.1421 8.94966L3.88562 21.2062C2.84422 22.2476 2.84422 23.936 3.88562 24.9774L6.24264 27.3344C7.02369 26.5534 8.29002 26.5534 9.07107 27.3344C9.85212 28.1155 9.85212 29.3818 9.07107 30.1629L11.4281 32.5199C12.4695 33.5613 14.1579 33.5613 15.1993 32.5199L27.4558 20.2634C28.4972 19.222 28.4972 17.5335 27.4558 16.4921L25.0988 14.1351C24.3178 14.9162 23.0514 14.9162 22.2704 14.1351C21.4893 13.3541 21.4893 12.0877 22.2704 11.3067L19.9134 8.94966Z" fill="black"></path>
+                </svg>
+              </td>
+              <td class="ticket-price__adult">Взрослый</td>
+              <td class="ticket-price__preferential">Льготный</td>
+              <td class="ticket-price__childish">Детский</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="ticket-price__name">В одну сторону</td>
+              {% component 'contenteditor' file="price/1way/ticket-price__adult.htm" class="ticket-price__adult" fixture="td" %}
+              {% component 'contenteditor' file="price/1way/ticket-price__preferential.htm" class="ticket-price__preferential" fixture="td" %}
+              {% component 'contenteditor' file="price/1way/ticket-price__childish.htm" class="ticket-price__childish" fixture="td" %}
+            </tr>
+            <tr>
+              <td class="ticket-price__name">Туда и обратно</td>
+              {% component 'contenteditor' file="price/2way/ticket-price__adult.htm" class="ticket-price__adult" fixture="td" %}
+              {% component 'contenteditor' file="price/2way/ticket-price__preferential.htm" class="ticket-price__preferential" fixture="td" %}
+              {% component 'contenteditor' file="price/2way/ticket-price__childish.htm" class="ticket-price__childish" fixture="td" %}
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="ticket-price__img-bg">
+        <picture><img src="{{'assets/img/ticket-price/ticket-price__img-bg@1x.png'|theme}}" srcset="{{'assets/img/ticket-price/ticket-price__img-bg@2x.png'|theme}} 2x" width="580" height="580" alt="Kronshtadt chumnoi"></picture>
+      </div>
+    </div>
+  </section>

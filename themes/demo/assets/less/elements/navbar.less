@@ -1,0 +1,76 @@
+.navbar-header .navbar-brand {
+    margin: 13px 30px 0 0;
+    width: 152px;
+    height: 25px;
+    .hide-text();
+    background: url('../images/logo.svg') no-repeat 0 50%;
+}
+
+.navbar-toggle {
+    margin-right: 0;
+}
+
+.navbar-autohide {
+    transition: transform .5s;
+}
+
+.navbar-autohide.is-hidden {
+    transform: translateY(-(@navbar-height + 2px));
+}
+
+.navbar-collapse:not(.in):not(.collapsing) .navbar-nav li {
+    > a {
+        transition: color 0.2s ease 0.05s;
+    }
+
+    > a:after {
+        position: absolute;
+        height: 4px;
+        bottom: 15px;
+        content: '';
+        border-radius: 4px;
+        z-index: 5;
+        width: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        transition: all 0.2s ease 0.05s;
+    }
+
+    &.active > a {
+        background: transparent;
+    }
+}
+
+.navbar-inverse {
+    border-bottom: none;
+
+    .navbar-collapse:not(.in):not(.collapsing) .navbar-nav li {
+        &.active > a:after,
+        > a:hover:after {
+            background: @navbar-inverse-stripe-color-active;
+        }
+
+        &.active > a:hover:after {
+            background: @navbar-inverse-stripe-color-active;
+        }
+
+        > a:hover:after {
+            background: @navbar-inverse-stripe-color-hover;
+        }
+    }
+}
+
+.navbar-default .navbar-collapse:not(.in):not(.collapsing) .navbar-nav li {
+    &.active > a:after,
+    > a:hover:after {
+        background: @navbar-default-stripe-color-active;
+    }
+
+    &.active > a:hover:after {
+        background: @navbar-default-stripe-color-active;
+    }
+
+    > a:hover:after {
+        background: @navbar-default-stripe-color-hover;
+    }
+}

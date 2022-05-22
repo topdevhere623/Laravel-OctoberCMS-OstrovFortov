@@ -1,0 +1,57 @@
+1.0.1:
+    - 'Initialize plugin.'
+1.0.2:
+    - 'Created table pkurg_customfields_value_data'
+    - builder_table_create_pkurg_customfields_value_data.php
+1.0.3:
+    - 'Created table pkurg_customfields_fields'
+    - builder_table_create_pkurg_customfields_fields.php
+1.0.4:
+    - 'Updated table pkurg_customfields_value_data'
+    - builder_table_update_pkurg_customfields_value_data.php
+1.0.5:
+    - 'Updated table pkurg_customfields_value_data'
+    - builder_table_update_pkurg_customfields_value_data_2.php
+1.0.6:
+    - 'Created table pkurg_customfields_tabvalueorder'
+    - builder_table_create_pkurg_customfields_tabvalueorder.php
+2.0.0: 'Second version'
+2.0.1: 'Small update'
+2.0.2: 'Small update'
+2.0.3: 'Add user permissions'
+2.0.4: 'Add API'
+2.0.5: Fix
+2.0.6: 'Fixed permissions for settings'
+2.0.7: fix
+2.0.8:
+    - 'Updated table pkurg_customfields_value_data'
+    - builder_table_update_pkurg_customfields_value_data_3.php
+2.0.9:
+    - 'Updated table pkurg_customfields_fields'
+    - builder_table_update_pkurg_customfields_fields.php
+2.1.0: fix
+2.1.1:
+    - 'Updated table pkurg_customfields_value_data'
+    - builder_table_update_pkurg_customfields_value_data_4.php
+2.1.2:
+    - 'Created table pkurg_customfields_users_data'
+    - builder_table_create_pkurg_customfields_users_data.php
+2.1.3:
+    - 'Created table pkurg_customfields_usertabvalueorder'
+    - builder_table_create_pkurg_customfields_usertabvalueorder.php
+2.1.4: 'Adds User custom fields'
+2.1.5: 'CMS Page select fix'
+2.1.6:
+    - 'Updated table pkurg_customfields_fields'
+    - builder_table_update_pkurg_customfields_fields_2.php
+2.1.7: 'small fix'
+2.1.8: fix
+2.1.91: 'Adds Blog fields and data export/import'
+2.2.0: 'Import fix'
+2.2.1:
+    - 'Updated table pkurg_customfields_fields'
+    - builder_table_update_pkurg_customfields_fields_3.php
+2.2.2: User Custom fields not saved. Fix     
+2.2.3: Added support for custom fields for CMS Pages (Editor) October 2
+2.2.4: 'small fix'
+2.2.5: 'yaml fields'

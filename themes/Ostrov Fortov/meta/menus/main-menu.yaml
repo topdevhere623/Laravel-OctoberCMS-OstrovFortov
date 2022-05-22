@@ -1,0 +1,60 @@
+items:
+    -
+        title: Стоимость
+        type: url
+        url: '/#ticket-price'
+        code: ''
+        viewBag:
+            isHidden: '0'
+            cssClass: ''
+            isExternal: '0'
+    -
+        title: Причалы
+        type: url
+        url: '/#departure-berths'
+        code: ''
+        viewBag:
+            isHidden: '0'
+            cssClass: ''
+            isExternal: '0'
+    -
+        title: Преимущества
+        nesting: null
+        type: url
+        url: '/#advantages'
+        code: ''
+        reference: null
+        cmsPage: null
+        replace: null
+        viewBag:
+            isHidden: '0'
+            cssClass: ''
+            isExternal: '0'
+    -
+        title: Экскурсия
+        type: url
+        url: '/#excursion'
+        code: ''
+        viewBag:
+            isHidden: '0'
+            cssClass: ''
+            isExternal: '0'
+    -
+        title: 'О парке'
+        type: url
+        url: '/#about-project'
+        code: ''
+        viewBag:
+            isHidden: '0'
+            cssClass: ''
+            isExternal: '0'
+    -
+        title: 'О перевозчике'
+        type: url
+        url: '/#about-carrmit'
+        code: ''
+        viewBag:
+            isHidden: '0'
+            cssClass: ''
+            isExternal: '0'
+name: 'Главное меню'

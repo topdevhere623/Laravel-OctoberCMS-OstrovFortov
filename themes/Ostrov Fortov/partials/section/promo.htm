@@ -1,0 +1,13 @@
+<section class="promo">
+    <div class="promo__bg-video">
+        <video autoplay="autoplay" loop="loop" muted="muted" playsinline="" preload="auto" width="1423" height="800">
+            <source src="{{viewBag.video}}" type="video/mp4">
+        </video>
+    </div>
+    <div class="promo__bg-img"><img src="{{'assets/img/promo/promo-img.jpg'|theme}}" alt="Катер"></div>
+  <div class="promo__container container">
+    <div class="promo__logo-block"><a class="promo__logo-kronstadt" href="#!"><img src="{{'assets/img/promo/kronstadt.svg'|theme}}" alt="Kronstadt" width="106" height="118"></a><a class="promo__logo-neva-travel" href="#!"><img src="{{'assets/img/promo/neva-travel.svg'|theme}}" alt="Neva travel" width="130" height="47"></a></div>
+    {% component 'contenteditor' file="promo/title.htm" fixture="h1" class="promo__title" %}
+    {% component 'contenteditor' file="promo/description.htm" fixture="p" class="promo__text" %}
+  </div>
+</section>

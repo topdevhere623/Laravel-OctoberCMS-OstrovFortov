@@ -1,0 +1,28 @@
+fields:
+    name:
+        label: 'shohabbos.customfields::lang.group.name'
+        span: auto
+        type: text
+    page:
+        label: 'shohabbos.customfields::lang.group.page'
+        span: auto
+        type: dropdown
+    position:
+        label: 'shohabbos.customfields::lang.group.position'
+        options:
+            primary: Primary
+            secondary: Secondary
+        showSearch: true
+        span: auto
+        type: dropdown
+    is_repeater:
+        label: 'shohabbos.customfields::lang.group.is_repeater'
+        span: auto
+        type: switch
+tabs:
+    fields:
+        properties:
+            span: full
+            path: field_properties
+            type: partial
+            tab: 'shohabbos.customfields::lang.group.properties'

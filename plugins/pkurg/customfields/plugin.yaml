@@ -1,0 +1,13 @@
+plugin:
+    name: 'pkurg.customfields::lang.plugin.name'
+    description: 'pkurg.customfields::lang.plugin.description'
+    author: 'Vladimir Pushkov'
+    icon: oc-icon-code
+    homepage: ''
+navigation:
+    main-menu-item:
+        label: 'Custom Fields'
+        url: pkurg/customfields/customfields
+        icon: icon-bars
+        permissions:
+            - pkurg.cardslider.manage_fields

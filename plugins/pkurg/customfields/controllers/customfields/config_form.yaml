@@ -1,0 +1,10 @@
+name: CustomFields
+form: $/pkurg/customfields/models/customfields/fields.yaml
+modelClass: pkurg\Customfields\Models\CustomFields
+defaultRedirect: pkurg/customfields/customfields
+create:
+    redirect: 'pkurg/customfields/customfields/update/:id'
+    redirectClose: pkurg/customfields/customfields
+update:
+    redirect: pkurg/customfields/customfields
+    redirectClose: pkurg/customfields/customfields

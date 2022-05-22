@@ -1,0 +1,165 @@
+fields:
+    partial1:
+        span: full
+        path: $/pkurg/customfields/partials/blog.htm
+        type: partial
+    type:
+        label: Type
+        options:
+            Blog: Blog
+            'CMS Page': 'CMS Page'
+            User: User
+        showSearch: true
+        span: auto
+        type: dropdown
+        #cssClass: pkurg-customfields-type        
+        #dependsOn: custom_fields
+    caption:
+        label: 'Tab caption'
+        span: auto
+        placeholder: 'New Tab'
+        default: 'New Tab'
+        type: text
+    name:
+        label: 'Group field name'
+        span: auto
+        type: text
+        comment: 'lowercase, a-z, no spaces'
+    # page:
+    #     label: Pages
+    #     span: auto
+    #     trigger:
+    #         action: show
+    #         field: type
+    #         condition: 'value[CMS Page]'
+    #     type: checkboxlist
+    #     comment: 'Choose the pages to which the fields will be added'
+    maxitems:
+        label: 'Repeater maxitems'
+        span: auto
+        default: '100'
+        required: 1
+        type: number
+        comment: 'maximum number of items to allow within the repeater'
+    
+    custom_fields:
+        label: Fields
+        prompt: 'Add new item'
+        span: full
+        containerAttributes:
+            rep: hide
+        type: repeater
+        #dependsOn: type
+        form:
+            fields:
+                inspector_check:
+                    label: 'Use Inspector configuration'
+                    span: full
+                    type: checkbox
+                    comment: 'See: https://octobercms.com/docs/ui/inspector'                
+                    cssClass: custom-fields-inspector
+                    #hidden: true
+                    
+
+                    # dependsOn: type
+
+                    # trigger:
+                    #     action: show
+                    #     field: type
+                    #     condition: 'value[CMS Page]'
+                name:
+                    label: 'Field name'
+                    span: auto
+                    type: text
+                    comment: 'lowercase, a-z, no spaces'
+                    cssClass: custom-fields-name
+                    # trigger:
+                    #     action: show
+                    #     field: inspector_check
+                    #     condition: unchecked                    
+                caption:
+                    label: 'Field Caption'
+                    span: auto
+                    placeholder: 'New Caption'
+                    type: text
+                    cssClass: custom-fields-caption
+                    trigger:
+                        action: show
+                        field: inspector_check
+                        condition: unchecked                    
+                type:
+                    label: Type
+                    options:
+                        text: text
+                        textarea: textarea
+                        checkbox: checkbox
+                        number: number
+                        codeeditor: codeeditor
+                        colorpicker: colorpicker
+                        datepicker: datepicker
+                        taglist: taglist
+                        markdown: markdown
+                        Backend\FormWidgets\RichEditor: RichEditor
+                        mediafinder: mediafinder
+                        yaml: yaml                    
+                    showSearch: true
+                    cssClass: custom-fields-type
+                    span: auto
+                    type: dropdown
+                    comment: 'Attention for CMS Pages in October2 only the following field types are supported: text, checkbox, mediafinder. Use Inspector Data schema configuration for more flexible fields configuration.'
+                    trigger:
+                        action: show
+                        field: inspector_check
+                        condition: unchecked                    
+                comment:
+                    label: Comment
+                    span: auto
+                    type: text
+                    cssClass: custom-fields-comment
+                    trigger:
+                        action: show
+                        field: inspector_check
+                        condition: unchecked                    
+                default:
+                    label: 'Default value'
+                    size: huge
+                    span: full
+                    type: textarea
+                    cssClass: custom-fields-default
+                    trigger:
+                        action: show
+                        field: inspector_check
+                        condition: unchecked                    
+                yaml:                    
+                    label: yaml
+                    cssClass: custom-fields-yaml
+                    size: huge
+                    language: yaml
+                    span: full
+                    type: codeeditor
+                    comment: https://octobercms.com/docs/backend/forms#field-types
+                    trigger:
+                        action: show
+                        field: type
+                        condition: value[yaml]                        
+                    default: >
+                        status_type:
+                            label: Blog Post Status
+                            type: dropdown
+                            default: published
+                            options:
+                                draft: Draft
+                                published: Published
+                                archived: Archived
+                
+                inspector_config:
+                    label: 'Inspector configuration'
+                    size: huge
+                    span: full
+                    type: codeeditor
+                    default: '{ "_comment": "Dropdown Example", "property":"action","title":"Action","type":"dropdown","options":{"show":"Show","hide":"Hide","enable":"Enable","disable":"Disable","empty":"Empty"}}'                    
+                    trigger:
+                        action: show
+                        field: inspector_check
+                        condition: checked
+

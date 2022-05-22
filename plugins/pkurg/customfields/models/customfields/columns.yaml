@@ -1,0 +1,7 @@
+columns:
+    caption:
+        label: 'Tab Caption'
+        type: text
+    type:
+        label: 'Page Type'
+        type: text

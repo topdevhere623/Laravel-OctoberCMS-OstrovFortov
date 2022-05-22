@@ -1,0 +1,313 @@
+<section class="modal modal--ticket" data-validate>
+    <div class="modal__overlay"></div>
+    <form class="modal__container js-popup-container" id="modal-order" data-programs='<?php echo json_encode($programs); ?>' data-cruises-to='<?php echo json_encode($cruisesTo); ?>' data-date="<?=$calendarDate; ?>" data-cruises-back='<?php echo json_encode($cruisesBack); ?>'>
+        <button class="modal__close-button modal__close-btn" type="button"></button>
+        <div class="modal__wrapper">
+            <div class="modal__info">
+                <div class="modal__fildset">
+                    <h3 class="modal__title-form">Отправление туда</h3>
+                    <div class="modal__field-item modal__field-item--date">
+                        <label class="modal__date-label" for="popup-date">Дата</label>
+                        <input class="modal__field" type="text" data-datepicker value="<?php echo $calendarDate; ?>" id="popup-date" readonly>
+                        <svg class="modal__date-svg" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 10H7V12H9V10ZM13 10H11V12H13V10ZM17 10H15V12H17V10ZM19 3H18V1H16V3H8V1H6V3H5C3.89 3 3 3.9 3 5V19C3 19.5304 3.21071 20.0391 3.58579 20.4142C3.96086 20.7893 4.46957 21 5 21H19C19.5304 21 20.0391 20.7893 20.4142 20.4142C20.7893 20.0391 21 19.5304 21 19V5C21 4.46957 20.7893 3.96086 20.4142 3.58579C20.0391 3.21071 19.5304 3 19 3ZM19 19H5V8H19V19Z" fill="#2D5FA6"></path>
+                        </svg>
+                    </div>
+                    <div class="custom-select custom-select--slide-up modal__field-item modal__field-item--place" data-select="" data-name="palce-form-modal" data-id="palce-form-modal"><span class="modal__date-label">Откуда</span>
+                        <button class="buy-tickets__date buy-tickets__field custom-select__button" type="button" aria-label="Выберите одну из опций"><span class="custom-select__text" v-text="(pier ? pier.name : (totalCruises > 0 ? 'Выберите одну из опций' : 'Рейсы не найдены'))"></span>
+                            <svg class="buy-tickets__date-svg custom-select__icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M7.41 8.58008L12 13.1701L16.59 8.58008L18 10.0001L12 16.0001L6 10.0001L7.41 8.58008Z" fill="#2D5FA6"></path>
+                            </svg>
+                        </button>
+                        <div v-show="totalCruises > 0" class="buy-tickets__place-list">
+                            <div v-show="piersTo.length > 0" class="place-list__block" data-place="Спб">
+                                <p>Из Санкт-Петербурга:</p>
+                                <ul role="listbox">
+                                    <li v-for="pierItem, key in piersTo" :data-index="key" @click="setPier(pierItem)" class="custom-select__item" tabindex="0" :data-select-value="pierItem.id" :aria-selected="(pierItem.selected ? 'true' : 'false')" role="option" v-text="pierItem.name"></li>
+                                </ul>
+                            </div>
+                            <div v-show="piersBack.length > 0" class="place-list__block" data-place="Кронштадт">
+                                <p>Из Кронштадта:</p>
+                                <ul role="listbox">
+                                    <ul role="listbox">
+                                        <li v-for="pierItem, key in piersBack" @click="setPier(pierItem)" class="custom-select__item" tabindex="0" :data-select-value="pierItem.id" :aria-selected="(pierItem.selected ? 'true' : 'false')" role="option" v-text="pierItem.name"></li>
+                                    </ul>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div v-show="times.length > 0" class="modal__field-container">
+                        <div class="modal__field-item modal__field-item--time-start">
+                            <h4>Время отправления</h4>
+                            <div class="modal__time-list">
+                              <span v-for="time in times">
+                                <input @change="setCruise(time.cruise)" :checked="(cruise && cruise.id == time.cruise_id)" class="visually-hidden modal__time-item-input" type="radio" :value="time.time" name="time-to" :id="'time-to-' + time.time">
+                                <label class="modal__time-item-label" :for="'time-to-' + time.time" v-text="time.time"></label>
+                              </span>
+                            </div>
+                        </div>
+                        <div v-if="cruise && cruise.arrival_piers.length" class="modal__field-item modal__field-item--time-finish">
+                            <h4>Время прибытия</h4>
+                            <p v-for="a_pier in cruise.arrival_piers" class="modal__text-time-finish">
+                                <span v-text="a_pier.name + ':'"></span>
+                                <span v-text="a_pier.time"></span>
+                            </p>
+                        </div>
+                    </div>
+                    <div v-show="backTripCruises.length > 0" class="modal__field-item modal__field-item--checkbox">
+                        <input class="visually-hidden" type="checkbox" v-model="withoutBack" id="return-ticket">
+                        <label for="return-ticket">Обратный билет не нужен</label>
+                    </div>
+                </div>
+                <div v-show="backTripCruises.length > 0 && !withoutBack" class="modal__fildset">
+                    <h3 class="modal__title-form">Отправление обратно</h3>
+                    <div class="custom-select custom-select--slide-up modal__field-item modal__field-item--place" data-select="" data-name="palce-form-modal-return" data-id="palce-form-modal-return"><span class="modal__date-label">Откуда</span>
+                        <button class="buy-tickets__date buy-tickets__field custom-select__button" type="button" aria-label="Выберите одну из опций"><span class="custom-select__text" v-text="(backPier ? backPier.name : (totalCruises > 0 ? 'Выберите одну из опций' : 'Рейсы не найдены'))">Сенатская пристань (Спб)</span>
+                            <svg class="buy-tickets__date-svg custom-select__icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M7.41 8.58008L12 13.1701L16.59 8.58008L18 10.0001L12 16.0001L6 10.0001L7.41 8.58008Z" fill="#2D5FA6"></path>
+                            </svg>
+                        </button>
+                        <div class="buy-tickets__place-list">
+                            <div class="place-list__block" data-place="Кронштадт">
+                                <p v-text="(pier && pier.direction == 'to' ? 'Из Кронштадта:' : 'Из Санкт-Петербурга:')"></p>
+                                <ul role="listbox">
+                                    <li v-for="pierItem, key in backTripPiers" @click="setBackPier(pierItem)" class="custom-select__item" tabindex="0" :data-select-value="pierItem.id" :aria-selected="(pierItem.selected ? 'true' : 'false')" role="option" v-text="pierItem.name"></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div v-show="backTripTimes.length > 0" class="modal__field-container">
+                        <div class="modal__field-item modal__field-item--time-start">
+                            <h4>Время отправления</h4>
+                            <div class="modal__time-list">
+                      <span v-for="time in backTripTimes">
+                        <input @change="setBackCruise(time.cruise)" :checked="(backCruise && backCruise.id == time.cruise_id)" class="visually-hidden modal__time-item-input" type="radio" :value="time.time" name="time-back" :id="'time-back-' + time.time">
+                        <label class="modal__time-item-label" :for="'time-back-' + time.time" v-text="time.time"></label>
+                      </span>
+                            </div>
+                        </div>
+                        <div v-if="backCruise && backCruise.arrival_piers.length > 0" class="modal__field-item modal__field-item--time-finish">
+                            <h4>Время прибытия</h4>
+                            <p v-for="a_pier in backCruise.arrival_piers" class="modal__text-time-finish">
+                                <span v-text="a_pier.name + ':'"></span>
+                                <span v-text="a_pier.time"></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div v-if="pier" class="modal__fildset">
+                    <h3 class="modal__title-form">Количество билетов</h3>
+                    <div class="modal__ticket-list">
+                        <div v-for="ticketRow, ticketKey in tickets" class="modal__ticket-item">
+                            <div class="modal__ticket-name-block">
+                                <p class="modal__ticket-name" v-text="ticketRow.name">Детский</p>
+                                <div v-if="ticketRow.tooltip" class="modal__tooltip">
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M8.66536 6.00004H7.33203V4.66671H8.66536V6.00004ZM8.66536 11.3334H7.33203V7.33337H8.66536V11.3334ZM7.9987 1.33337C7.12322 1.33337 6.25631 1.50581 5.44747 1.84084C4.63864 2.17588 3.90371 2.66694 3.28465 3.286C2.03441 4.53624 1.33203 6.23193 1.33203 8.00004C1.33203 9.76815 2.03441 11.4638 3.28465 12.7141C3.90371 13.3331 4.63864 13.8242 5.44747 14.1592C6.25631 14.4943 7.12322 14.6667 7.9987 14.6667C9.76681 14.6667 11.4625 13.9643 12.7127 12.7141C13.963 11.4638 14.6654 9.76815 14.6654 8.00004C14.6654 7.12456 14.4929 6.25766 14.1579 5.44882C13.8229 4.63998 13.3318 3.90505 12.7127 3.286C12.0937 2.66694 11.3588 2.17588 10.5499 1.84084C9.74108 1.50581 8.87418 1.33337 7.9987 1.33337Z" fill="#2D5FA6"></path>
+                                    </svg>
+                                    <div class="modal__tooltip-container">
+                                        <span class="modal__tooltip-text" v-text="ticketRow.tooltip"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal__ticket-count count-block">
+                                <button @click="decTickets(ticketKey)" class="count-block__btn count-block__btn--minus" type="button"></button>
+                                <input v-model="tickets[ticketKey].value" class="count-block__input" type="text" value="1" readonly>
+                                <button @click="incTickets(ticketKey)" class="count-block__btn count-block__btn--plus" type="button"></button>
+                            </div>
+                            <p class="modal__ticket-summ"><span v-text="prices[ticketKey]"></span><span class="ruble">q</span></p>
+                            <div v-if="(ticketKey == 'children' && tickets.children.value > 0 && !ticketsValidate())" class="error-message">Приобретение детских билетов возможно только при покупке хотя бы одного взрослого или льготного билета</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal__fildset">
+                    <h3 class="modal__title-form">Ваши данные</h3>
+                    <p class="modal__subtitle-form">Обязательно к заполнению</p>
+                    <div class="modal__field-item modal__field-item--email" data-validate-type="text">
+                        <label class="modal__email-label" for="name">Ваше имя</label>
+                        <input class="modal__field" v-model="name" type="text" placeholder="Ваше имя" id="name">
+                    </div>
+                    <div class="modal__field-item modal__field-item--email" data-validate-type="email">
+                        <label class="modal__email-label" for="email">Email*</label>
+                        <input class="modal__field" v-model="email" type="email" placeholder="mail@mail.ru" id="email" aria-required="true" aria-invalid="true">
+                        <div v-if="errors.email" class="error-message">Введён не корректный email</div>
+                    </div>
+                    <div class="modal__field-item modal__field-item--phone" data-validate-type="phone">
+                        <label class="modal__tel-label" for="phone">Телефон*</label>
+                        <input class="modal__field" v-model="phone"
+                               @change="validatePhone"
+                               @keyup="validatePhone"
+                               @keypress="validatePhone"
+                               @keydown="validatePhone"
+                               @blur="clearPhone"
+                               type="tel" placeholder="+7 _ _ _ - _ _ _ - _ _ - _ _" id="phone" aria-required="true" aria-invalid="true">
+                        <div v-if="errors.phone" class="error-message">Введён не корректный номер телефона</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal__buy order-ticket" id="order-ticket">
+                <time class="order-ticket__date" datetime="2021-05-30" v-text="dateFormat"></time>
+                <div v-if="cruise || backCruise" class="order-ticket__list-container">
+                    <ul class="order-ticket__list">
+                        <li v-if="cruise" class="order-ticket__item"><span class="order-ticket__header">Отправление с причала:</span>
+                            <p class="order-ticket__name" v-text="cruise.pier_departure.name"></p>
+                            <strong class="order-ticket__time-start" v-text="cruise.starting_time"></strong>
+                            <p class="order-ticket__travel-time">В пути:<span v-text="timeFormat(cruise.full_time)"></span></p>
+                        </li>
+                        <li v-if="backCruise" class="order-ticket__item"><span class="order-ticket__header">Обратно с причала:</span>
+                            <p class="order-ticket__name" v-text="backCruise.pier_departure.name"></p>
+                            <strong class="order-ticket__time-start" v-text="backCruise.starting_time">14:45</strong>
+                            <p class="order-ticket__travel-time">В пути:<span v-text="timeFormat(backCruise.full_time)"></span></p>
+                        </li>
+                    </ul>
+                    <div v-if="totalPrice > 0" class="order-ticket__passenger-title">
+                        <div v-for="ticketRow, ticketKey in tickets">
+                            <p v-if="ticketRow.value > 0"><span v-text="ticketRow.long_name + ':'"></span><strong><span v-text="ticketRow.value"></span> шт</strong><span v-text="'('+prices[ticketKey]+'  ₽)'"></span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-ticket__price"><span class="order-ticket__header">Сумма к оплате:</span><strong class="order-ticket__summ"><span v-text="totalPrice"></span><span class="ruble">i</span></strong></div>
+                <div class="order-ticket__conditions-checkbox" data-validate-type="checkbox">
+                    <input v-model="accept" class="visually-hidden conditions-input" id="conditions" type="checkbox" aria-required="true" aria-invalid="true">
+                    <label for="conditions">Я принимаю условия <a href="/offer-services/">Оферты на оказание услуг</a> и даю свое <a href="/personal-data/">Согласие на обработку персональных данных</a></label>
+                </div>
+                <button class="order-ticket__btn button" :disabled="buttonDisabled" @click="order($event)" type="submit">Купить билеты</button>
+            </div>
+        </div>
+        <div class="modal__price-sticky js-sticky-price">
+            <div class="modal__price-sticky-wrapper"><span class="modal__sticky-header">Сумма к оплате:</span><strong class="modal__sticky-summ"><span v-text="totalPrice"></span><span class="ruble">i</span></strong></div><a class="modal__sticky-btn button" href="#order-ticket" data-scroll-container=".js-popup-container">Купить билеты</a>
+        </div>
+    </form>
+</section>
+<section class="modal modal--excursion-ticket" data-validate>
+    <div class="modal__overlay"></div>
+    <form class="modal__container js-popup-container" id="modal-excursion-order" data-program-to="2577951221176336498" data-programs='<?php echo json_encode($programs); ?>' data-cruises-to='<?php echo json_encode($cruisesTo); ?>' data-date="<?=$calendarDate; ?>" data-cruises-back='<?php echo json_encode($cruisesBack); ?>'>
+        <button class="modal__close-button modal__close-btn" type="button"></button>
+        <div class="modal__wrapper">
+            <div class="modal__info">
+                <div class="modal__fildset">
+                    <h3 class="modal__title-form">Экскурсия на теплоходе «Форты Кронштадта»</h3>
+                    <div class="modal__field-item modal__field-item--date">
+                        <label class="modal__date-label" for="popup-date">Дата</label>
+                        <input class="modal__field" type="text" data-datepicker value="<?php echo $calendarDate; ?>" id="popup-date" readonly>
+                        <svg class="modal__date-svg" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 10H7V12H9V10ZM13 10H11V12H13V10ZM17 10H15V12H17V10ZM19 3H18V1H16V3H8V1H6V3H5C3.89 3 3 3.9 3 5V19C3 19.5304 3.21071 20.0391 3.58579 20.4142C3.96086 20.7893 4.46957 21 5 21H19C19.5304 21 20.0391 20.7893 20.4142 20.4142C20.7893 20.0391 21 19.5304 21 19V5C21 4.46957 20.7893 3.96086 20.4142 3.58579C20.0391 3.21071 19.5304 3 19 3ZM19 19H5V8H19V19Z" fill="#2D5FA6"></path>
+                        </svg>
+                    </div>
+                    <div v-if="cruise" class="modal__field-container">
+                        <div class="modal__field-item modal__field-item--time-start">
+                            <h4>Откуда</h4>
+                            <p class="modal__text-time-finish"><span>Остров Фортов</span></p>
+                        </div>
+                        <div class="modal__field-item modal__field-item--time-finish">
+                            <h4>Теплоход</h4>
+                            <p class="modal__text-time-finish">
+                                <span v-text="cruise.ship.name">Москва</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div v-else class="modal__field-container">
+                        <div class="modal__field-item modal__field-item--time-finish">
+                            <h4>Рейсы не найдены</h4>
+                        </div>
+                    </div>
+                    <div v-show="times.length > 0" class="modal__field-container">
+                        <div class="modal__field-item modal__field-item--time-start">
+                            <h4>Время отправления</h4>
+                            <div class="modal__time-list">
+                              <span v-for="time in times">
+                                <input @change="setCruise(time.cruise)" :checked="(cruise && cruise.id == time.cruise_id)" class="visually-hidden modal__time-item-input" type="radio" :value="time.time" name="time-to" :id="'time-to-' + time.time">
+                                <label class="modal__time-item-label" :for="'time-to-' + time.time" v-text="time.time"></label>
+                              </span>
+                            </div>
+                        </div>
+                        <div v-if="cruise" class="modal__field-item modal__field-item--time-finish">
+                            <h4>Продолжительность</h4>
+                            <p class="modal__text-time-finish">
+                                <span v-text="timeFormat(cruise.full_time)">45 минут</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div v-if="pier && cruise" class="modal__fildset">
+                    <h3 class="modal__title-form">Количество билетов</h3>
+                    <div class="modal__ticket-list">
+                        <div v-for="ticketRow, ticketKey in tickets" class="modal__ticket-item">
+                            <div class="modal__ticket-name-block">
+                                <p class="modal__ticket-name" v-text="ticketRow.name">Детский</p>
+                                <div v-if="ticketRow.tooltip" class="modal__tooltip">
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M8.66536 6.00004H7.33203V4.66671H8.66536V6.00004ZM8.66536 11.3334H7.33203V7.33337H8.66536V11.3334ZM7.9987 1.33337C7.12322 1.33337 6.25631 1.50581 5.44747 1.84084C4.63864 2.17588 3.90371 2.66694 3.28465 3.286C2.03441 4.53624 1.33203 6.23193 1.33203 8.00004C1.33203 9.76815 2.03441 11.4638 3.28465 12.7141C3.90371 13.3331 4.63864 13.8242 5.44747 14.1592C6.25631 14.4943 7.12322 14.6667 7.9987 14.6667C9.76681 14.6667 11.4625 13.9643 12.7127 12.7141C13.963 11.4638 14.6654 9.76815 14.6654 8.00004C14.6654 7.12456 14.4929 6.25766 14.1579 5.44882C13.8229 4.63998 13.3318 3.90505 12.7127 3.286C12.0937 2.66694 11.3588 2.17588 10.5499 1.84084C9.74108 1.50581 8.87418 1.33337 7.9987 1.33337Z" fill="#2D5FA6"></path>
+                                    </svg>
+                                    <div class="modal__tooltip-container">
+                                        <span class="modal__tooltip-text" v-text="ticketRow.tooltip"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal__ticket-count count-block">
+                                <button @click="decTickets(ticketKey)" class="count-block__btn count-block__btn--minus" type="button"></button>
+                                <input v-model="tickets[ticketKey].value" class="count-block__input" type="text" value="1" readonly>
+                                <button @click="incTickets(ticketKey)" class="count-block__btn count-block__btn--plus" type="button"></button>
+                            </div>
+                            <p class="modal__ticket-summ"><span v-text="prices[ticketKey]"></span><span class="ruble">q</span></p>
+                            <div v-if="(ticketKey == 'children' && tickets.children.value > 0 && !ticketsValidate())" class="error-message">Приобретение детских билетов возможно только при покупке хотя бы одного взрослого или льготного билета</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal__fildset">
+                    <h3 class="modal__title-form">Ваши данные</h3>
+                    <p class="modal__subtitle-form">Обязательно к заполнению</p>
+                    <div class="modal__field-item modal__field-item--email" data-validate-type="text">
+                        <label class="modal__email-label" for="name">Ваше имя</label>
+                        <input class="modal__field" v-model="name" type="text" placeholder="Ваше имя" id="name">
+                    </div>
+                    <div class="modal__field-item modal__field-item--email" data-validate-type="email">
+                        <label class="modal__email-label" for="email">Email*</label>
+                        <input class="modal__field" v-model="email" type="email" placeholder="mail@mail.ru" id="email" aria-required="true" aria-invalid="true">
+                        <div v-if="errors.email" class="error-message">Введён не корректный email</div>
+                    </div>
+                    <div class="modal__field-item modal__field-item--phone" data-validate-type="phone">
+                        <label class="modal__tel-label" for="phone">Телефон*</label>
+                        <input class="modal__field" v-model="phone"
+                               @change="validatePhone"
+                               @keyup="validatePhone"
+                               @keypress="validatePhone"
+                               @keydown="validatePhone"
+                               @blur="clearPhone"
+                               type="tel" placeholder="+7 _ _ _ - _ _ _ - _ _ - _ _" id="phone" aria-required="true" aria-invalid="true">
+                        <div v-if="errors.phone" class="error-message">Введён не корректный номер телефона</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal__buy order-ticket" id="order-ticket">
+                <time class="order-ticket__date" datetime="2021-05-30" v-text="dateFormat"></time>
+                <div v-if="cruise || backCruise" class="order-ticket__list-container">
+                    <ul class="order-ticket__list">
+                        <li v-if="cruise" class="order-ticket__item">
+                            <span class="order-ticket__header">Отправление с причала:</span>
+                            <p class="order-ticket__name">Остров Фортов</p>
+                            <strong class="order-ticket__time-start" v-text="cruise.starting_time"></strong>
+                        </li>
+                    </ul>
+                    <div v-if="totalPrice > 0" class="order-ticket__passenger-title">
+                        <div v-for="ticketRow, ticketKey in tickets">
+                            <p v-if="ticketRow.value > 0"><span v-text="ticketRow.long_name + ':'"></span><strong><span v-text="ticketRow.value"></span> шт</strong><span v-text="'('+prices[ticketKey]+'  ₽)'"></span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-ticket__price"><span class="order-ticket__header">Сумма к оплате:</span><strong class="order-ticket__summ"><span v-text="totalPrice"></span><span class="ruble">i</span></strong></div>
+                <div class="order-ticket__conditions-checkbox" data-validate-type="checkbox">
+                    <input v-model="accept" class="visually-hidden conditions-input" id="conditions2" type="checkbox" aria-required="true" aria-invalid="true">
+                    <label for="conditions2">Я принимаю условия <a href="/offer-services/">Оферты на оказание услуг</a> и даю свое <a href="/personal-data/">Согласие на обработку персональных данных</a></label>
+                </div>
+                <button class="order-ticket__btn button" :disabled="buttonDisabled" @click="order($event)" type="submit">Купить билеты</button>
+            </div>
+        </div>
+        <div class="modal__price-sticky js-sticky-price">
+            <div class="modal__price-sticky-wrapper"><span class="modal__sticky-header">Сумма к оплате:</span><strong class="modal__sticky-summ"><span v-text="totalPrice"></span><span class="ruble">i</span></strong></div><a class="modal__sticky-btn button" href="#order-ticket" data-scroll-container=".js-popup-container">Купить билеты</a>
+        </div>
+    </form>
+</section>
+<div class="preloader" id="preloader">
+    <div class="loader"></div>
+</div>

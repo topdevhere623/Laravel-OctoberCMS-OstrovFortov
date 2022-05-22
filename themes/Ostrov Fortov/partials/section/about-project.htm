@@ -1,0 +1,57 @@
+[blogPosts]
+pageNumber = "{{ :page }}"
+categoryFilter = "o-proekte-galereya"
+postsPerPage = 10
+noPostsMessage = "Записей не найдено"
+sortOrder = "title asc"
+categoryPage = "home"
+postPage = "home"
+==
+{% set advantages = blogPosts.posts %}
+<section class="about-project">
+              <div class="about-project__container container">
+                  <div class="about-project__main" id="about-project">
+                      <div class="about-project__img-block"><img src="{{'assets/img/about-project/bg-map.png'|theme}}" width="1255" height="1018" alt="Map"></div>
+                        {% component 'contenteditor' file="about/title.htm" class="about-project__title title" fixture="h2" %}
+                        {% component 'contenteditor' file="about/1line.htm" class="about-project__descr" fixture="p" %}
+                        {% component 'contenteditor' file="about/2line.htm" class="about-project__descr" fixture="p" %}
+                        {% component 'contenteditor' file="about/3line.htm" class="about-project__descr" fixture="p" %}
+                        {% component 'contenteditor' file="about/4line.htm" class="about-project__descr" fixture="p" %}
+                  </div>
+                  <div class="about-project__info">
+                      {% component 'contenteditor' file="about/attraction_title.htm" class="" fixture="h3" %}
+                      <ul>
+                        {% component 'contenteditor' file="about/attraction1.htm" class="" fixture="li" %}
+                        {% component 'contenteditor' file="about/attraction2.htm" class="" fixture="li" %}
+                        {% component 'contenteditor' file="about/attraction3.htm" class="" fixture="li" %}
+                        {% component 'contenteditor' file="about/attraction4.htm" class="" fixture="li" %}
+                        {% component 'contenteditor' file="about/attraction5.htm" class="" fixture="li" %}
+                        {% component 'contenteditor' file="about/attraction6.htm" class="" fixture="li" %}
+                        {% component 'contenteditor' file="about/attraction7.htm" class="" fixture="li" %}
+                      </ul>
+                  </div>
+                  <div class="slider-sights slider-sights--about slider-sights--blue">
+                      <ul class="slider-sights__list swiper-wrapper">
+                          {% for advantage in advantages %}
+                            {%for image in advantage.featured_images|slice(0,1) %}
+                                <li class="slider-sights__item swiper-slide">
+                                    <picture><img src="{{image.path}}" alt="slide"></picture>
+                                </li>
+                            {% endfor %}
+                          {% endfor %}
+                      </ul>
+                      <div class="slider-sights__nav">
+                          <button class="slider-sights__btn slider-sights__btn--prev" type="button">
+                              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M16.0195 3.9585L3.99872 15.9793M16.0195 28.0001L3.99872 15.9793M3.99872 15.9793L28.0403 15.9793" stroke="currentColor" stroke-width="2"></path>
+                              </svg>
+                          </button>
+                          <button class="slider-sights__btn slider-sights__btn--next" type="button">
+                              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M16.0195 28L28.0403 15.9792M16.0195 3.95837L28.0403 15.9792M28.0403 15.9792L3.99872 15.9792" stroke="currentColor" stroke-width="2"></path>
+                              </svg>
+                          </button>
+                      </div>
+                  </div>
+              </div>
+          </section>

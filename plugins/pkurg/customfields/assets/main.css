@@ -1,0 +1,53 @@
+
+/*[data-request^="formBlogValueForm"] {
+	margin: -1000000000000000001px;
+}
+
+
+[repit="CMSPage"] {
+	padding: 20px;
+}
+*/
+/*
+Hide others nested controls          big
+*/
+
+
+
+
+div.form-group.repeater-pkurg-page {
+    padding: 15px;
+}
+
+
+.repeater-pkurg-page>div>ul>li>div>div {
+    display: none;
+
+}
+
+
+
+.repeater-pkurg>div>ul>li>div>div {
+    display: none;
+
+}
+
+div.form-group.repeater-pkurg {
+    display: block;
+
+}
+
+div.form-group.repeater-control-pkurg{
+   display: block;
+}
+
+/*
+
+[data-sortable-container$="Form0CmspageValue-items-cmspage-value"] {
+	display: none;
+}
+div.form-group.span-full label {
+    font-weight: bold;
+}
+
+*/

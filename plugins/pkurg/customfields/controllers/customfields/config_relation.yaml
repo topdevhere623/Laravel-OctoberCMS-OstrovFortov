@@ -1,0 +1,14 @@
+values:
+
+  label: Fields
+
+  view:
+    toolbarButtons:  create|delete
+    list: $/pkurg/customfields/models/fieldsvalue/columns.yaml
+  
+  manage:
+
+    
+    form: $/pkurg/customfields/models/fieldsvalue/fields.yaml
+    
+

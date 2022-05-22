@@ -1,0 +1,23 @@
+description = "Default layout"
+==
+<?php
+include_once __DIR__ . '/html/HtmlHelper.php';
+$html = HtmlHelper::getInstance();
+include_once __DIR__.'/html/blocks/data.php';
+?>
+<!DOCTYPE html>
+<html lang="ru">
+    {% partial 'site/head' %}
+  <body>
+    <div class="wrapper">
+        {% partial 'site/header_in' %}
+      <main>
+          {% page %}
+      </main>
+      {% partial 'site/modal' %}
+    </div>
+    {% partial 'site/scripts' %}
+    {% framework extras %}
+    {% scripts %}
+  </body>
+</html>

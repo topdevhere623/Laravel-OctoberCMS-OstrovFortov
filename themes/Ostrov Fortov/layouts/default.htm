@@ -1,0 +1,34 @@
+description = "Default layout"
+==
+<?php
+function onStart() { 
+                        include_once $_SERVER['DOCUMENT_ROOT'].'/html/HtmlHelper.php';
+                        $html = HtmlHelper::getInstance();
+                        include_once $_SERVER['DOCUMENT_ROOT'].'/html/blocks/data.php';
+    }
+?>
+==
+<!DOCTYPE html>
+<html lang="ru">
+    {% partial 'site/head' %}
+  <body>
+    <div class="wrapper">
+        {% partial 'site/header' %}
+      <main>
+          {% partial 'section/promo' %}
+          {% partial 'section/buy-tickets' %}
+          {% partial 'section/ticket-price' %}
+          {% partial 'section/departure-berths' %}
+          {% partial 'section/advantages' %}
+          {% partial 'section/excursion-kronshtadt' %}
+          {% partial 'section/about-project' %}
+          {% partial 'section/about-carrmit' %}
+      </main>
+      {% partial 'site/footer' %}
+      {% partial 'site/modal' %}
+    </div>
+    {% partial 'site/scripts' %}
+    {% framework extras %}
+    {% scripts %}
+  </body>
+</html>
